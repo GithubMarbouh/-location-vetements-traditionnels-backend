@@ -1,0 +1,175 @@
+@startuml Location de vetements traditionnels
+namespace LVT {
+class Utilisateur {
+    -nom: String
+    -prenom: String
+    -email: String
+    -motDePasse: String
+    -telephone: String
+
+    +seConnecter(email: String, motDePasse: String)
+    +getNom()
+    +getPrenom()
+    +getEmail()
+    +getMotDePasse()
+    +getTelephone()
+    +setNom(nom: String)
+    +setPrenom(prenom: String)
+    +setEmail(email: String)
+    +setMotDePasse(motDePasse: String)
+    +setTelephone(telephone: String)
+    }
+
+class Client {
+    -blacklistee: boolean
+    +getblacklistee()
+    +setblacklistee(blacklistee: boolean)
+
+
+
+}
+
+class Vendeur {
+    -identifiant: String
+    +getIdentifiant()
+    +setIdentifaint (identifiant: String)
+    +ajouterBoutique(boutique: Boutique)
+    +supprimerBoutique(boutique: Boutique)
+}
+
+class Administrateur {
+    +validerVendeur(vendeur: Vendeur)
+    +validerBlacklist(client: Client)
+    +supprimerVendeur(vendeur: Vendeur)
+}
+
+class Boutique {
+    -nom: String
+    -adresse: String
+    -telephone: String
+    -email: String
+    -siteWeb: String
+    -horaires: String
+    +getNom()
+    +getAdresse()
+    +getTelephone()
+    +getEmail()
+    +getSiteWeb()
+    +getHoraires()
+    +setNom(nom: String)
+    +setAdresse(adresse: String)
+    +setTelephone(telephone: String)
+    +setEmail(email: String)
+    +setSiteWeb(siteWeb: String)
+    +setHoraires(horaires: String)
+}
+
+class Produit {
+    -nom: String
+    -description: String
+    -categorie: String
+    -prixLocation: double
+
+    +getNom()
+    +getDescription()
+    +getCategorie()
+    +getPrixLocation()
+    +setNom(nom: String)
+    +setDescription(description: String)
+    +setCategorie(categorie: String)
+    +setPrixLocation(prixLocation: double)
+
+
+}
+
+class Reservation {
+    -dateDebut: Date
+    -dateFin: Date
+    -etat: String
+
+    +getDateDebut()
+    +getDateFin()
+    +getEtat()
+    +setDateDebut(dateDebut: Date)
+    +setDateFin(dateFin: Date)
+    +setEtat(etat: String)
+
+}
+
+class CreneauEssayage {
+    -date: Date
+    -heureDebut: Time
+    -heureFin: Time
+    +getDate()
+    +getHeureDebut()
+    +getHeureFin()
+    +setDate(date: Date)
+    +setHeureDebut(heureDebut: Time)
+    +setHeureFin(heureFin: Time)
+
+}
+
+class CreneauDisponibilite {
+    -dateDebut: Date
+    -dateFin: Date
+    +getDateDebut()
+    +getDateFin()
+    +setDateDebut(dateDebut: Date)
+    +setDateFin(dateFin: Date)
+}
+
+class Avis {
+    -note: int
+    -commentaire: String
+    +getNote()
+    +getCommentaire()
+    +setNote(note: int)
+    +setCommentaire(commentaire: String)
+
+}
+class Location{
+    -dateDebut: Date
+    -dateFin: Date
+    -etat: String
+    +getDateDebut()
+    +getDateFin()
+    +getEtat()
+    +setDateDebut(dateDebut: Date)
+    +setDateFin(dateFin: Date)
+    +setEtat(etat: String)
+
+}
+class Catalogue{
+    -nom: String
+    -description: String
+    -categorie: String
+    +getNom()
+    +getDescription()
+    +getCategorie()
+    +setNom(nom: String)
+    +setDescription(description: String)
+    +setCategorie(categorie: String)
+
+
+}
+}
+
+skinparam class {
+    BackgroundColor White
+    ArrowColor SeaGreen
+}
+
+Utilisateur <|-- Client
+Utilisateur <|-- Vendeur
+Utilisateur <|-- Administrateur
+Vendeur "1"--"1" Boutique
+Boutique "1"--"1..*" Produit
+Produit *--"1" CreneauDisponibilite
+Client *--"1" Reservation
+Reservation *--"1" CreneauEssayage
+Client *--"1" Avis
+Boutique *-- Avis
+Client "1" -- "1..*" Location
+Produit "1" -- "1..*" Location
+Produit "*" -- "1" Catalogue
+@enduml
